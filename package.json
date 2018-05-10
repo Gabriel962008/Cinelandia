@@ -1,0 +1,19 @@
+{
+  "name": "cinelandia",
+  "version": "1.0.0",
+  "description": "cinelandia",
+  "main": "roteamento.js",
+  "scripts": {
+    "test": "node roteamento.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gabriel962008/Cinelandia.git"
+  },
+  "author": "Gabriel Rodrigues e Matheus Diogo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gabriel962008/Cinelandia/issues"
+  },
+  "homepage": "https://github.com/Gabriel962008/Cinelandia#readme"
+}
