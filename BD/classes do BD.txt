@@ -1,0 +1,20 @@
+Classes principais: 
+
+	- Usuário: 
+		- nome;
+		- login;
+		- email; 
+		- senha; 
+		- cpf; 
+
+	- Cinema:
+		- nome;
+		- salas;
+		- sessão(horario, id da sala, preço)
+
+	- Filme:
+		- título;
+		- duração;
+		- sinopse;
+		- classificação;
+		- idioma;
