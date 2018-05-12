@@ -67,9 +67,8 @@ var filmes = [{nome:'venom',ano:2018,descricao:'filme da marvel',img:'images/ven
 
 var filme = {nome:'venom',ano:2018,descricao:'filme da marvel',img:'../public/images/venom.jpg'};
 
-
 app.set('view engine','ejs');
-app.use( express.static( "public" ) );
+app.use( express.static('views') ); //app.use( express.static( "public" ) );
 
 app.get('/',function(req,res){
    res.render('home',{filmes});//esse aqui serve para renderizar uma view
