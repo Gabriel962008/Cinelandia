@@ -4,7 +4,7 @@ var http = require('http');
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-
+/*
 // Cria Conexão com o Banco 
 // Conexão na base de dados tarefas da máquina local (localhost)
 mongoose.connect("mongodb://localhost/bd");
@@ -60,13 +60,13 @@ new Filme(myFilme).save((err, objFilmeLocal) => {
     console.log('Filme Adicionado ...');
   }
 });
-
-/*var filmes = [{nome:'venom',ano:2018,descricao:'filme da marvel',img:'images/venom.jpg'},
+*/
+var filmes = [{nome:'venom',ano:2018,descricao:'filme da marvel',img:'images/venom.jpg'},
               {nome:'deadpool 2',ano:2018,descricao:'filme da marvel',img:'images/deadpool.jpg'},
               {nome:'Jogador numero 1',ano:2018,descricao:'filme de suspense e ficção científica',img:'images/jogador1.jpg'}];
 
 var filme = {nome:'venom',ano:2018,descricao:'filme da marvel',img:'../public/images/venom.jpg'};
-*/
+
 app.set('view engine','ejs');
 app.use( express.static( "public" ) );
 
