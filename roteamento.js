@@ -5,9 +5,6 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 
-
-
-
 mongoose.connect("mongodb://gm.trabalho:gm$webdev123@ds123500.mlab.com:23500/cinelandia");
 var dbMongo = mongoose.connection;
 
@@ -15,7 +12,6 @@ dbMongo.on('error', console.error.bind(console, 'Não foi possível se conectar 
 dbMongo.once('open', function () {
 	console.log('Aplicação conectada no MongoDB');
 });
-
 
 var Filme = mongoose.model('filmes',
 	new mongoose.Schema({
