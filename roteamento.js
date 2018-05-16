@@ -5,7 +5,7 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 
-mongoose.connect("mongodb://gm.trabalho:webdev123321ci@ds123500.mlab.com:23500/cinelandia");
+mongoose.connect("mongodb://gmTrabalhoWeb:webdev123321ci@ds123500.mlab.com:23500/cinelandia");
 var dbMongo = mongoose.connection;
 
 dbMongo.on('error', console.error.bind(console, 'Não foi possível se conectar no MongoDB!'));
