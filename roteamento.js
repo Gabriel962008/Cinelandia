@@ -61,17 +61,52 @@ new Filme(myFilme).save((err, objFilmeLocal) => {
   }
 });
 */
+
+
+mongoose.connect("mongodb://localhost/cinelandia");
+var dbMongo = mongoose.connection;
+
+dbMongo.on('error', console.error.bind(console, 'Não foi possível se conectar no MongoDB!'));
+dbMongo.once('open', function () {
+	console.log('Aplicação conectada no MongoDB');
+});
+
+
+var Filme = mongoose.model('filmes',
+	new mongoose.Schema({
+        nome: { type: String, required: [true, 'Nome é obrigatório!'] },
+        ano: {type: Number, required:[true, 'ano é obrigatória']},
+        preco: {type: Number, required: [true, 'preço é obrigatória.']},
+        descricao: {type: String, required:[true, 'descrição é obrigatória.']},
+        horario: {type: Array, required: [true, 'Horarios é obrigatório.']},
+        //imagem: {type: String, required: [true, 'Imagem é obrigatória.']}
+    }));
+
+
 var filmes = [{nome:'venom',ano:2018,descricao:'filme da marvel',img:'images/venom.jpg'},
               {nome:'deadpool 2',ano:2018,descricao:'filme da marvel',img:'images/deadpool.jpg'},
               {nome:'Jogador numero 1',ano:2018,descricao:'filme de suspense e ficção científica',img:'images/jogador1.jpg'}];
 
 var filme = {nome:'venom',ano:2018,descricao:'filme da marvel',img:'../public/images/venom.jpg'};
 
+
 app.set('view engine','ejs');
 app.use( express.static('views') ); //app.use( express.static( "public" ) );
 
 app.get('/',function(req,res){
-   res.render('home',{filmes});//esse aqui serve para renderizar uma view
+
+  Filme.find({},function(err,filmes){
+      if (err) {
+        console.error(err);
+        res.status(500).send('Erro na aplicação: ' + err.message);
+      } else {
+			  res.render('home', {
+				filmes: filmes,
+			})
+		}
+  });
+
+   //res.render('home',{filmes});//esse aqui serve para renderizar uma view
    //res.send('Home');
 })
 
