@@ -36,9 +36,9 @@ new Filme(
      {
        'hora' : '15:00',
        'poltronas' : [
-            {'pos1': false},
-            {'pos2': false},
-            {'pos3': false},
+            {'pos':1, 'status': false},
+            {'pos':2, 'status': false},
+            {'pos':3, 'status': false}
        ]
      }
    ]
