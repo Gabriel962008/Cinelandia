@@ -93,6 +93,6 @@ app.use(function(req,res,next){
   res.type('txt').send('Not found');
 });
 
-app.listen(3000,function(){
+app.listen(process.env.PORT || 3000,function(){
 	console.log('servidor rodando na porta 3000.');
 });
