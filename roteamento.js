@@ -4,66 +4,11 @@ var http = require('http');
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-/*
-// Cria Conexão com o Banco 
-// Conexão na base de dados tarefas da máquina local (localhost)
-mongoose.connect("mongodb://localhost/bd");
-
-var dbMongo = mongoose.connection;
-dbMongo.on('error', console.error.bind(console, 'Não foi possível se conectar no MongoDB!'));
-dbMongo.once('open', function () {
-	console.log('Aplicação conectada no MongoDB');
-});
-var Filme = mongoose.model('filmes',
-	new mongoose.Schema({
-        titulo: { type: String, required: [true, 'Título é obrigatório!'] },
-        duracao: {type: Number, required:[true, 'Duração é obrigatória']},
-        sinopse: {type: String, required: [true, 'Sinopse é obrigatória.']},
-        classificacao: {type: String, required:[true, 'Classificaçao é obrigatória.']},
-        idioma: {type: String, required: [true, 'Idioma é obrigatório.']},
-        imagem: {type: String, required: [true, 'Imagem é obrigatória.']}
-    }));
-    
-var Cinema = mongoose.model('cinemas', 
-    new mongoose.Schema({
-        nome: {type: String, required: [true, 'Nome do cinema é obrigatório']},
-        precoSessao: {type: Number, required: [true, 'Valor do ingresso é obrigatório.']},
-        horarioSessao: {type: String, required:[true, 'Horário da sessão é obrigatório.']}
-}));
 
 
-var Usuario = mongoose.model('usuarios',
-    new mongoose.Schema({
-        nome: {type:String, required:[true, 'Nome é obrigatório.']},
-        login: {type:String, required:[true, 'Login é obrigatório.']},
-        email: {type:String, required:[true, 'E-mail é obrigatório.']},
-        senha: {type:String, required:[true, 'Senha é obrigatória.']},
-        cpf: {type:String, required:[true, 'CPF é obrigatório.']}
-}));
-var myFilme = 
-  {
-      titulo: 'Teste 1',
-      duracao: 120,
-      sinopse: 'Sinopse',
-      classificacao: '+14',
-      idioma: 'Ingles',
-      imagem: '/images/venom.jpg'
-  }
-
-new Filme(myFilme).save((err, objFilmeLocal) => {
-  if(err)
-  {
-    console.error(err);
-    res.status(500).send('Erro na aplicação: ' + err.message);
-  }
-  else{
-    console.log('Filme Adicionado ...');
-  }
-});
-*/
 
 
-mongoose.connect("mongodb://localhost/cinelandia");
+mongoose.connect("mongodb://gm.trabalho:gm$webdev123@ds123500.mlab.com:23500/cinelandia");
 var dbMongo = mongoose.connection;
 
 dbMongo.on('error', console.error.bind(console, 'Não foi possível se conectar no MongoDB!'));
@@ -82,17 +27,36 @@ var Filme = mongoose.model('filmes',
         //imagem: {type: String, required: [true, 'Imagem é obrigatória.']}
     }));
 
-
-var filmes = [{nome:'venom',ano:2018,descricao:'filme da marvel',img:'images/venom.jpg'},
-              {nome:'deadpool 2',ano:2018,descricao:'filme da marvel',img:'images/deadpool.jpg'},
-              {nome:'Jogador numero 1',ano:2018,descricao:'filme de suspense e ficção científica',img:'images/jogador1.jpg'}];
-
-var filme = {nome:'venom',ano:2018,descricao:'filme da marvel',img:'../public/images/venom.jpg'};
-
+/*
+    Modelo para criar filmes manualmente
+*/
+new Filme(
+  {
+   'nome': 'teste filme',
+   'ano' : 2000,
+   'preco' : 15,
+   'descricao' : 'teste descricao',
+   'horario' : [
+     {
+       'hora' : '15:00',
+       'poltronas' : [
+            {'pos1': false},
+            {'pos2': false},
+            {'pos3': false},
+       ]
+     }
+   ]
+  }).save((err, objTarefaLocal) => 
+{
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('Tarefa Adicionada ...');
+    }
+});
 
 app.set('view engine','ejs');
-app.use( express.static('views') ); //app.use( express.static( "public" ) );
-
+app.use( express.static('views') ); 
 app.get('/',function(req,res){
 
   Filme.find({},function(err,filmes){
@@ -105,9 +69,6 @@ app.get('/',function(req,res){
 			})
 		}
   });
-
-   //res.render('home',{filmes});//esse aqui serve para renderizar uma view
-   //res.send('Home');
 })
 
 app.get('/filmes',function(req,res){
