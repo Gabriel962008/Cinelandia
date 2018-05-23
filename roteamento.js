@@ -20,12 +20,18 @@ var Filme = mongoose.model('filmes',
         preco: {type: Number, required: [true, 'preço é obrigatória.']},
         descricao: {type: String, required:[true, 'descrição é obrigatória.']},
         horario: {type: Array, required: [true, 'Horarios é obrigatório.']},
-        //imagem: {type: String, required: [true, 'Imagem é obrigatória.']}
+        imagem: {type: String, required: [true, 'Imagem é obrigatória.']}
     }));
 
 /*
     Modelo para criar filmes manualmente
 */
+var myquery = { preco: 15 };
+dbMongo.collection("filmes").deleteMany(myquery, function(err, obj) {
+  if (err) throw err;
+  console.log(obj.result.n + " document(s) deleted");
+});
+
 new Filme(
   {
    'nome': 'teste filme',
@@ -41,18 +47,45 @@ new Filme(
             {'pos':3, 'status': false}
        ]
      }
-   ]
+   ],
+   'imagem' : 'index.jpeg',
   }).save((err, objTarefaLocal) => 
 {
   if (err) {
     console.error(err);
   } else {
-    console.log('Tarefa Adicionada ...');
+    console.log('Filme Adicionado ...');
+    }
+});
+new Filme(
+  {
+   'nome': 'Deadpool 2',
+   'ano' : 2018,
+   'preco' : 15,
+   'descricao' : 'sinopse Deadpool',
+   'horario' : [
+     {
+       'hora' : '15:00',
+       'poltronas' : [
+            {'pos':1, 'status': false},
+            {'pos':2, 'status': false},
+            {'pos':3, 'status': false}
+       ]
+     }
+   ],
+   'imagem' : 'deadpool.jpeg',
+  }).save((err, objTarefaLocal) => 
+{
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('Filme Adicionado ...');
     }
 });
 
 app.set('view engine','ejs');
 app.use( express.static('views') ); 
+app.use( express.static('Public') ); 
 app.get('/',function(req,res){
 
   Filme.find({},function(err,filmes){
@@ -67,8 +100,22 @@ app.get('/',function(req,res){
   });
 })
 
-app.get('/filmes',function(req,res){
-   res.render('filmes',{filme});//esse aqui serve para renderizar uma view
+app.get('/filmes/:idFilme',function(req,res){
+  var idFilme = req.param('idFilme');
+  Filme.find({_id: idFilme},function(err,filme){
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erro na aplicação: ' + err.message);
+    } else {
+      //console.log(filme);
+      res.render('filmes', {
+      filme: filme,
+    })
+  }
+});
+
+
+   //res.render('filmes',{filme});//esse aqui serve para renderizar uma view
    //res.send('Página filmes');
 })
 

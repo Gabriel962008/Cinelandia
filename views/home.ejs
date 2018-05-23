@@ -14,10 +14,10 @@
 
 	        <div class="card h-100">
 
-	            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt="" style="height:488px;width: 100%;"></a>
+	            <a href="#"><img class="card-img-top" src="<%= filme.imagem %>" alt="" style="height:488px;width: 100%;"></a>
 	            <div class="card-body">
 	                <h4 class="card-title">
-	                  <a href="#"><%= filme.nome %></a>
+	                  <a href="/filmes/<%= filme._id %>"><%= filme.nome %></a>
 	                </h4>
 	                <h5><%= filme.preco %></h5>
 	                  <p class="card-text"><%= filme.descricao %></p>
